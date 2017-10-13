@@ -132,6 +132,20 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+puts "Adding a couple users..."
+
+User.create!({
+  name: 'Alice',
+  email: 'alice@email.com',
+  password_digest: 'not blank'
+})
+
+User.create!({
+  name: 'Bob',
+  email: 'bob@email.com',
+  password_digest: 'not empty'
+})
+
 puts "Making some reviews..."
 
 prod1 = Product.first
@@ -149,19 +163,19 @@ prod1.reviews.create!({
   rating: 5
 })
 
-prod1.reviews.create!({
+prod2.reviews.create!({
   user_id: 1,
   description: 'Meh',
   rating: 3
 })
 
-prod1.reviews.create!({
+prod2.reviews.create!({
   user_id: 2,
   description: 'Sort of good, sometimes.',
   rating: 4
 })
 
-prod1.reviews.create!({
+prod2.reviews.create!({
   user_id: 1,
   description: "It's actually less than meh.",
   rating: 2
