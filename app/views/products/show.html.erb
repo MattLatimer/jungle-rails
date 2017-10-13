@@ -27,6 +27,17 @@
     </div>
 
     <div class="row">
+      <p>FORM HERE!</p>
+      <%= form_for [@product, Review.new] do |form| %>
+      <%= form.label :description %>
+      <%= form.text_field :description %>
+      <%= form.label :rating %>
+      <%= form.select :rating, ['', 1, 2, 3, 4, 5] %>
+      <%= form.submit "Submit Review" %>
+      <% end %>
+    </div>
+
+    <div class="row">
       <div class="col-sm-12 panel panel-default">
         <table class="table table-bordered">
           <thead>
