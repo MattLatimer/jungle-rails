@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thanks for ordering from the Jungle!</h1>
+    <p>
+      The monkeys are throwing your things into a box, and you should have it soon.
+      Here's your order details, to make sure they got everything right.
+    </p>
+    <table>
+      <thead>
+        <td>
+          <h4>| Product |</h4>
+        </td>
+        <td>
+          <h4>| Unit Price |</h4>
+        </td>
+        <td>
+          <h4>| Quantity |</h4>
+        </td>
+        <td>
+          <h4>| Price |</h4>
+        </td>
+      </thead>
+      <tbody>
+        <% @order_total = 0 %>
+        <% @line_items.each do |item| %>
+        <%= render 'item', product_id: item.product_id,
+                           quantity: item.quantity %>
+        <% end %>
+      </tbody>
+      <tfoot>
+          <tr>
+            <th colspan="3">
+              TOTAL:
+            </th>
+            <th>
+              $<%= @order_total %>
+            </th>
+          </tr>
+        </tfoot>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+<% if product = Product.find_by(id: product_id) %>
+  <% item_total = product.price * quantity %>
+  <% @order_total += item_total %>
+Product: <%= product.name %>
+Unit Price: $<%= product.price %>
+Quantity: <%= quantity %>
+Price: $<%= item_total %>
+<% end %>

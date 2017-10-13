@@ -1,0 +1,12 @@
+Thanks for ordering from the Jungle!
+====================================
+
+The monkeys are throwing your things into a box, and you should have it soon.
+Here's your order details, to make sure they got everything right.
+
+<% @order_total = 0 %>
+<% @line_items.each do |item| %>
+<%= render 'item', product_id: item.product_id,
+                    quantity: item.quantity %>
+<% end %>
+TOTAL: $<%= @order_total %>
