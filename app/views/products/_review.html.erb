@@ -1,7 +1,7 @@
 <% @reviewer = user[review.user_id - 1] %>
 
-<div class="review">
-  <dt><%= @reviewer.name %> says:</dt>
-  <dd><%= review.description %></dd>
-  <dd>Rating: <%= review.rating %>/5 </dd>
-</div>
+<tr class="review">
+  <td><%= @reviewer.name %> says:</td>
+  <td><%= review.description %></td>
+  <td>Rating: <%= review.rating %>/5 </td>
+</tr>
