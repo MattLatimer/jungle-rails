@@ -3,5 +3,11 @@
 <tr class="review">
   <td><%= @reviewer.name %> says:</td>
   <td><%= review.description %></td>
-  <td>Rating: <%= review.rating %>/5 </td>
+  <td>Rating: <%= review.rating %>/5
+
+    <% if current_user.id == review.user_id %>
+      <%= link_to 'Delete', product_review_path(product_id: product.id, id: review.id),
+                            method: :delete %>
+  </td>
+  <% end %>
 </tr>

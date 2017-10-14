@@ -50,7 +50,7 @@
           </thead>
           <tbody>
             <% @product.reviews.order(created_at: :desc).each do |review| %>
-            <%= render 'products/review', review: review, user: User.all %>
+            <%= render 'products/review', review: review, product: @product, user: User.all %>
             <% end %>
           </tbody>
         </table>

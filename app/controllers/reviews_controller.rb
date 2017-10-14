@@ -1,4 +1,7 @@
 class ReviewsController < ApplicationController
+  before_action do
+    @product = Product.find(params[:product_id])
+  end
 
   def create
     @review = Review.new(review_params)
@@ -10,6 +13,14 @@ class ReviewsController < ApplicationController
     else
       render template: 'products/show'
     end
+  end
+
+  def destroy
+    review = Review.find(params[:id])
+    if review.user_id == current_user.id
+      review.destroy
+    end
+    redirect_to @product    
   end
 
   private
