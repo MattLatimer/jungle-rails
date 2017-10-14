@@ -1,10 +1,5 @@
 class ReviewsController < ApplicationController
 
-  before_action do
-    @product = Product.find(params[:product_id])
-    redirect_to @product unless current_user
-  end
-
   def create
     @review = Review.new(review_params)
     @review.product = @product

@@ -1,4 +1,4 @@
-class CartsController < ApplicationController
+class CartsController < LoggedInController
 
   def show
   end
