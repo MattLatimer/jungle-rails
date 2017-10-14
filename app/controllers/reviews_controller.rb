@@ -1,4 +1,4 @@
-class ReviewsController < ApplicationController
+class ReviewsController < LoggedInController
   before_action do
     @product = Product.find(params[:product_id])
   end
