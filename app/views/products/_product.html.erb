@@ -10,9 +10,8 @@
   </p>
 
   <% average = @reviews.where(product_id: product.id).average(:rating) %>
-  <% if average %>
-    <p>Average Rating: <%= average.round(2) %></p>
-  <% end %>
+  <p>Average Rating: <%= average ? average.round(2) : 'No reviews yet.' %></p>
+  
 
   <footer class="actions">
     <%= link_to add_item_cart_path(product_id: product.id), class: 'btn btn-primary', method: :put do %>
