@@ -1,4 +1,4 @@
-<% @reviewer = user[review.user_id - 1] %>
+<% @reviewer = users.to_a.detect {|user| user.id == review.user_id} %>
 
 <tr class="review">
   <td><%= @reviewer.name %> says:</td>
