@@ -1,4 +1,4 @@
-class OrdersController < LoggedInController
+class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
@@ -32,7 +32,7 @@ class OrdersController < LoggedInController
     Stripe::Charge.create(
       source:      params[:stripeToken],
       amount:      cart_total, # in cents
-      description: "#{current_user.name}'s Jungle Order",
+      description: "#{current_user ? current_user.name : "Anon"}'s Jungle Order",
       currency:    'cad'
     )
   end
