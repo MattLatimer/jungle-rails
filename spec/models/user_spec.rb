@@ -1,25 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+
+ before(:each) do
+  @user = User.create({
+    name: 'a',
+    email: 'a@a.a',
+    password: 'password',
+    password_confirmation: 'password'
+  })
+ end
+
   describe 'Validations' do
     it 'should be valid with all fields' do
-      @user = User.create!({
-        name: 'a',
-        email: 'a@a.a',
-        password: 'password',
-        password_confirmation: 'password'
-      })
       expect(@user).to be_valid
     end
 
     it 'should have a unique email address, case insensitive' do
-      @user = User.create!({
-        name: 'a',
-        email: 'a@a.a',
-        password: 'password',
-        password_confirmation: 'password'
-      })
-      @user2 = User.create({
+      @user2 = User.new({
         name: 'a',
         email: 'A@A.A',
         password: 'password',
@@ -31,58 +29,41 @@ RSpec.describe User, type: :model do
     end
 
     it 'should reject if passwords do not match' do
-      @user = User.create({
-        name: 'a',
-        email: 'a@a.a',
-        password: 'password',
-        password_confirmation: 'passwrd'
-      })
+      @user.password_confirmation = 'passwrd'
       expect(@user).to be_invalid
       expect(@user.errors[:password_confirmation]).to include("doesn't match Password")
     end
 
     it 'should reject if password is missing' do
-      @user = User.create({
-        name: 'a',
-        email: 'a@a.a',
-        password: nil,
-        password_confirmation: nil
-      })
+      @user.password = nil
       expect(@user).to be_invalid
       expect(@user.errors[:password]).to include("can't be blank")
     end
 
     it 'should reject if password is too short' do
-      @user = User.create({
-        name: 'a',
-        email: 'a@a.a',
-        password: '1234',
-        password_confirmation: '1234'
-      })
+      @user.password = '1234',
+      @user.password_confirmation = '1234'
       expect(@user).to be_invalid
       expect(@user.errors[:password]).to include("is too short (minimum is 8 characters)")
     end
 
     it 'should reject if email is missing' do
-      @user = User.create({
-        name: 'a',
-        email: nil,
-        password: 'password',
-        password_confirmation: 'password'
-      })
+      @user.email = nil
       expect(@user).to be_invalid
       expect(@user.errors[:email]).to include("can't be blank")
     end
 
     it 'should reject if name is missing' do
-      @user = User.create({
-        name: nil,
-        email: 'a@a.a',
-        password: 'password',
-        password_confirmation: 'password'
-      })
+      @user.name = nil
       expect(@user).to be_invalid
       expect(@user.errors[:name]).to include("can't be blank")
+    end
+  end
+
+  describe '.authenticate_with_credentials' do
+    it 'should authenticate with proper credentials' do
+      user = User.authenticate_with_credentials(@user.email, @user.password)
+      expect(user).to_not be_nil
     end
   end
 end
