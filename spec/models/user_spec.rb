@@ -65,5 +65,20 @@ RSpec.describe User, type: :model do
       user = User.authenticate_with_credentials(@user.email, @user.password)
       expect(user).to_not be_nil
     end
+
+    it 'should not authenticate without proper credentials' do
+      user = User.authenticate_with_credentials(@user.email, 'qwertyuiop')
+      expect(user).to be_nil
+    end
+
+    it 'should authenticate with anycase letters in email' do
+      user = User.authenticate_with_credentials('a@A.A', @user.password)
+      expect(user).to_not be_nil
+    end
+
+    it 'should authenticate with whitespace around email' do
+      user = User.authenticate_with_credentials("  #{@user.email}  ", @user.password)
+      expect(user).to_not be_nil
+    end
   end
 end
